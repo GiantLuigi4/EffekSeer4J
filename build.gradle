@@ -1,0 +1,85 @@
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+configurations {
+    extraLibs
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    extraLibs platform("org.lwjgl:lwjgl-bom:3.2.3")
+//    extraLibs "org.lwjgl:lwjgl"
+//    extraLibs "org.lwjgl:lwjgl::natives-windows"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    if (new File('libs/153e_Win/153e.jar').exists()) {
+//        extraLibs files('libs/153e_Win/153e.jar')
+    }
+    if (new File('libs/jni4net.j-0.8.8.0.jar').exists()) {
+//        extraLibs files('libs/jni4net.j-0.8.8.0.jar')
+    } else {
+        File file = new File("libs/jni4net/0.8.8.0.jar");
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            String url = "https://downloads.sourceforge.net/project/jni4net/0.8.8/jni4net-0.8.8.0-bin.zip?ts=gAAAAABgjIerN1mfYh6GVHCxq_S9QVEOG2xmf05GXdDgG5IGxbgjOOBmZMf82st426Tcb75Y0Yzz2SnIfoDVVbq28JsCq8FAyQ%3D%3D&amp;use_mirror=versaweb&amp;r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fjni4net%2Ffiles%2F0.8.8%2F";
+            BufferedInputStream stream1 = new BufferedInputStream(new URL(url).openStream());
+            int b;
+            FileOutputStream stream2 = new FileOutputStream(file);
+            while ((b = stream1.read()) != -1) stream2.write(b);
+            stream1.close();
+            stream2.close();
+        }
+        ZipFile file1 = new ZipFile(file)
+        InputStream stream = file1.getInputStream(new ZipEntry("lib/jni4net.j-0.8.8.0.jar"))
+        file = new File("libs/jni4net.j-0.8.8.0.jar");
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+            FileOutputStream stream1 =  new FileOutputStream(file)
+            int b
+            while ((b = stream.read()) != -1) stream1.write(b)
+            stream1.close()
+        }
+        stream.close()
+//        extraLibs files('libs/jni4net.j-0.8.8.0.jar')
+    }
+
+
+    extraLibs platform("org.lwjgl:lwjgl-bom:3.2.3")
+
+    extraLibs "org.lwjgl:lwjgl"
+    extraLibs "org.lwjgl:lwjgl-assimp"
+    extraLibs "org.lwjgl:lwjgl-glfw"
+    extraLibs "org.lwjgl:lwjgl-openal"
+    extraLibs "org.lwjgl:lwjgl-opengl"
+    extraLibs "org.lwjgl:lwjgl-stb"
+    extraLibs "org.lwjgl:lwjgl::natives-windows"
+    extraLibs "org.lwjgl:lwjgl-assimp::natives-windows"
+    extraLibs "org.lwjgl:lwjgl-glfw::natives-windows"
+    extraLibs "org.lwjgl:lwjgl-openal::natives-windows"
+    extraLibs "org.lwjgl:lwjgl-opengl::natives-windows"
+    extraLibs "org.lwjgl:lwjgl-stb::natives-windows"
+
+//    extraLibs 'net.java.dev.jna:jna:4.5.0'
+    configurations.compile.extendsFrom(configurations.extraLibs)
+
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'Test'
+    }
+    from {
+        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

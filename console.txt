@@ -1,0 +1,27 @@
+OS: Win
+successfulSetup: true
+renderDevice: OpenGL
+isEffectLoaded: false
+
+Effect info:
+ curveCount: 0
+ materialCount: 0
+ modelCount: 0
+ textureCount: 2
+ texturePath0: test2.png
+ texturePath1: test3.png
+ isLoaded: true
+ minTerm: 2147483647
+ maxTerm: 2147483647
+
+Particle 0:
+ handle:0
+ isPaused:false
+ isVisible:true
+
+Particle 1:
+ handle:1
+ isPaused:false
+ isVisible:true
+
+particle.equals(particle1) == false
