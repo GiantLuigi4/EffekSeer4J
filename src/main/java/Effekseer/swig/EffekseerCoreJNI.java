@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 //all methods in this class were originally final static
 public class EffekseerCoreJNI {
   static {
-    System.load(Library.getDllFile().getParentFile().getAbsolutePath() + "/EffekseerNativeForJava.dll");
+    System.load(Library.getDllFileEffekseer().getAbsolutePath());
   }
   public static native long new_EffekseerBackendCore();
   public static native void delete_EffekseerBackendCore(long jarg1);

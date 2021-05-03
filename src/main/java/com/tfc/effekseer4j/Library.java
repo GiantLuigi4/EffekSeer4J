@@ -4,13 +4,40 @@ import com.tfc.effekseer4j.natives_config.InitializationConfigs;
 //import net.sf.jni4net.Bridge;
 
 import java.io.*;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+//import java.net.URL;
+//import java.util.HashMap;
+//import java.util.zip.ZipEntry;
+//import java.util.zip.ZipFile;
 
 public class Library {
-	private static final HashMap<String, byte[]> effekSeerJarEntries = new HashMap<>();
+	static {
+		try {
+			File file = new File(InitializationConfigs.binPath + "/effekseer/" + "EffekseerNativeForJava-effekseer4j-1.dll");
+			if (!file.exists()) {
+				file.getParentFile().mkdirs();
+				file.createNewFile();
+				
+				InputStream stream = Library.class.getClassLoader().getResourceAsStream("EffekseerNativeForJava.dll");
+				byte[] bytes = new byte[stream.available()];
+				stream.read(bytes);
+				stream.close();
+				
+				FileOutputStream stream1 = new FileOutputStream(file);
+				stream1.write(bytes);
+				stream1.close();
+				stream1.flush();
+			}
+		} catch (Throwable err) {
+			if (err instanceof RuntimeException) throw (RuntimeException) err;
+			throw new RuntimeException(err);
+		}
+	}
+	
+	public static File getDllFileEffekseer() {
+		return new File(InitializationConfigs.binPath + "/effekseer/" + "EffekseerNativeForJava-effekseer4j-1.dll");
+	}
+	
+/*	private static final HashMap<String, byte[]> effekSeerJarEntries = new HashMap<>();
 	private static final HashMap<String, byte[]> jni4netJarEntries = new HashMap<>();
 	
 //	public static final INJEnv env;
@@ -32,7 +59,7 @@ public class Library {
 //					}
 //				}
 //			});
-			
+
 //			File effekSeer = downloadZipEffekseer();
 //			cacheZip(effekSeer, effekSeerJarEntries);
 //			effekSeerJarEntries.keySet().forEach((entry)->{
@@ -44,7 +71,7 @@ public class Library {
 //					}
 //				}
 //			});
-			
+
 //			if (!Bridge.isRegistered()) {
 //				Bridge.setVerbose(true);
 //				Bridge.init(new File("bin/jni4net"));
@@ -84,7 +111,7 @@ public class Library {
 			}
 		});
 		jar.close();
-	}
+	}*/
 	
 	public static File getDllFile() {
 		return new File(
@@ -119,8 +146,8 @@ public class Library {
 //		}
 //		return targ;
 //	}
-	
-	//TODO: fix this so JNI4NET doesn't error when trying to load the dll files extraxted using this
+
+/*	//TODO: fix this so JNI4NET doesn't error when trying to load the dll files extraxted using this
 	private static File extractDll(String path, ZipEntry entry, HashMap<String, byte[]> map) throws IOException {
 		File targ = new File(
 				InitializationConfigs.binPath + "/" +
@@ -192,7 +219,7 @@ public class Library {
 			stream2.flush();
 		}
 		return file;
-	}
+	}*/
 	
 	protected static void init() {
 	}

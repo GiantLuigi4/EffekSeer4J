@@ -6,7 +6,6 @@ import com.tfc.effekseer4j.enums.TextureType;
 import com.tfc.effekseer4j.natives_config.InitializationConfigs;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.system.MemoryUtil;
 
@@ -39,18 +38,6 @@ public class Test {
 		});
 		System.out.print("OS: ");
 		System.out.println(InitializationConfigs.getOs());
-//		Effekseer effekseer = new Effekseer();
-//		Effekseer.Client client = new Effekseer.Client();
-//		Client client = new Client();
-//		Client client = Client.Create();
-//		System.out.println(system.DateTime.getToday().getDay());
-//		System.out.println(client);
-//		System.out.println(client.IsConnected());
-//		Client client = new Effekseer.Client();
-//		System.setProperty("java.library.path", new File("bin").getAbsolutePath());
-//		System.out.println(Bridge.isRegistered());
-//		Bridge.init(new File("bin/jni4net"));
-//		System.out.println(Bridge.isRegistered());
 		if (!GLFW.glfwInit()) throw new IllegalStateException("Unable to initialize GLFW");
 		GLFW.glfwDefaultWindowHints();
 		GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
@@ -61,7 +48,6 @@ public class Test {
 		GLFW.glfwSwapInterval(1);
 		GL.createCapabilities();
 		GLFW.glfwShowWindow(window);
-//		Effekseer effekseer = new Effekseer();
 		Effekseer.init();
 		System.out.print("successfulSetup: ");
 		System.out.println(Effekseer.setupForOpenGL());
@@ -71,9 +57,7 @@ public class Test {
 		manager.initialize(100);
 		manager.setViewport(1000, 1000);
 		EffekseerEffect effect = new EffekseerEffect();
-//		InputStream stream = Test.class.getClassLoader().getResourceAsStream("Laser01.efkefc");
 		InputStream stream = Test.class.getClassLoader().getResourceAsStream("test.efkefc");
-//		InputStream stream = new FileInputStream("Laser01.efkefc");
 		System.out.print("isEffectLoaded: ");
 		System.out.println(effect.isLoaded());
 		assert stream != null;
@@ -142,9 +126,7 @@ public class Test {
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture);
 			glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-//			manager.startUpdate();
 			manager.update(1);
-//			manager.endUpdate();
 			//active shaders here
 			manager.draw();
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -158,7 +140,6 @@ public class Test {
 		glDeleteTextures(texture);
 		manager.stopEffects();
 		Effekseer.finish();
-//		effekseer.delete();
 		manager.delete();
 		Effekseer.finish();
 	}
