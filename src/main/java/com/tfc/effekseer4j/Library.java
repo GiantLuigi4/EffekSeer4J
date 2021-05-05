@@ -1,13 +1,8 @@
 package com.tfc.effekseer4j;
 
 import com.tfc.effekseer4j.natives_config.InitializationConfigs;
-//import net.sf.jni4net.Bridge;
 
 import java.io.*;
-//import java.net.URL;
-//import java.util.HashMap;
-//import java.util.zip.ZipEntry;
-//import java.util.zip.ZipFile;
 
 public class Library {
 	static {
@@ -17,10 +12,12 @@ public class Library {
 				file.getParentFile().mkdirs();
 				file.createNewFile();
 				
+				ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
 				InputStream stream = Library.class.getClassLoader().getResourceAsStream("EffekseerNativeForJava.dll");
-				byte[] bytes = new byte[stream.available()];
-				stream.read(bytes);
+				int b;
+				while ((b = stream.read()) != -1) stream2.write(b);
 				stream.close();
+				byte[] bytes = stream2.toByteArray();
 				
 				FileOutputStream stream1 = new FileOutputStream(file);
 				stream1.write(bytes);

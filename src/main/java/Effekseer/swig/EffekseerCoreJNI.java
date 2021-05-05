@@ -8,6 +8,7 @@
 
 package Effekseer.swig;
 
+import com.tfc.effekseer4j.Effekseer;
 import com.tfc.effekseer4j.Library;
 
 import java.io.File;
@@ -16,6 +17,7 @@ import java.lang.reflect.Field;
 //all methods in this class were originally final static
 public class EffekseerCoreJNI {
   static {
+    Effekseer.init();
     System.load(Library.getDllFileEffekseer().getAbsolutePath());
   }
   public static native long new_EffekseerBackendCore();

@@ -1,4 +1,5 @@
 OS: Win
+java.io.BufferedInputStream
 successfulSetup: true
 renderDevice: OpenGL
 isEffectLoaded: false

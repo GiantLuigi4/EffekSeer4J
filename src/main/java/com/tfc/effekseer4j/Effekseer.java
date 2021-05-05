@@ -40,12 +40,6 @@ public class Effekseer {
 		core.delete();
 	}
 	
-	@Override
-	protected void finalize() throws Throwable {
-		delete();
-		super.finalize();
-	}
-	
 	public static DeviceType getDevice() {
 		return DeviceType.fromOrd(EffekseerBackendCore.GetDevice().swigValue());
 	}

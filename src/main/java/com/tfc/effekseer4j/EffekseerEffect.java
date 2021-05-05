@@ -22,12 +22,6 @@ public class EffekseerEffect {
 		core.delete();
 	}
 	
-	@Override
-	protected void finalize() throws Throwable {
-		delete();
-		super.finalize();
-	}
-	
 	public boolean load(InputStream stream, int length, float amplifier) throws IOException {
 		byte[] bytes = new byte[stream.available()];
 		stream.read(bytes);

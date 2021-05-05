@@ -40,12 +40,6 @@ public class EffekseerManager {
 		core.delete();
 	}
 	
-	@Override
-	protected void finalize() throws Throwable {
-		delete();
-		super.finalize();
-	}
-	
 	public EffekseerParticleEmitter createParticle(EffekseerEffect effect) {
 		int handle = core.Play(effect.core);
 		return new EffekseerParticleEmitter(handle, this);
