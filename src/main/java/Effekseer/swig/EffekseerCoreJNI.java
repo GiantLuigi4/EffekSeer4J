@@ -22,7 +22,11 @@ public class EffekseerCoreJNI {
       System.loadLibrary("EffekseerNativeForJava");
     } catch (UnsatisfiedLinkError e) {
       try {
-        NativeUtils.loadLibraryFromJar("/" + System.getProperty("os.name").toLowerCase(Locale.ROOT) + "/" + System.getProperty("os.arch") + "/" + System.mapLibraryName("EffekseerNativeForJava"));
+        NativeUtils.loadLibraryFromJar(
+                "/" + System.getProperty("os.name").toLowerCase(Locale.ROOT).split(" ")[0]
+                + "/" + System.getProperty("os.arch")
+                + "/" + System.mapLibraryName("EffekseerNativeForJava")
+        );
       } catch (IOException ioe) {
         throw new UnsatisfiedLinkError("Could not find Effekseer4J lib: "+ioe.getMessage());
       }
