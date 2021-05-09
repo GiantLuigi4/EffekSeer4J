@@ -11,3 +11,4 @@
 hs_err_pid*
 /src/test/resources/EffekseerNativeForJava.dll
 /src/main/resources/EffekseerNativeForJava.dll
+/effekseerNatives/

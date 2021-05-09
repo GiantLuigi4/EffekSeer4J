@@ -71,7 +71,7 @@ dependencies {
     extraLibs "org.lwjgl:lwjgl-opengl::natives-windows"
     extraLibs "org.lwjgl:lwjgl-stb::natives-windows"
 
-    jarInclude(files("bin/effekseerNative.zip"))
+    jarInclude(files("effekseerNatives"))
 
 //    extraLibs 'net.java.dev.jna:jna:4.5.0'
     configurations.compile.extendsFrom(configurations.extraLibs)

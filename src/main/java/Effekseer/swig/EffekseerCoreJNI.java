@@ -9,16 +9,28 @@
 package Effekseer.swig;
 
 import com.tfc.effekseer4j.Effekseer;
-import com.tfc.effekseer4j.Library;
+import cz.adamh.utils.NativeUtils;
 
-import java.io.File;
-import java.lang.reflect.Field;
+import java.io.IOException;
+import java.util.Locale;
 
 //all methods in this class were originally final static
 public class EffekseerCoreJNI {
   static {
     Effekseer.init();
-    System.load(Library.getDllFileEffekseer().getAbsolutePath());
+    try {
+      System.loadLibrary("EffekseerNativeForJava");
+    } catch (UnsatisfiedLinkError e) {
+      try {
+        NativeUtils.loadLibraryFromJar(
+                "/" + System.getProperty("os.name").toLowerCase(Locale.ROOT).split(" ")[0]
+                + "/" + System.getProperty("os.arch")
+                + "/" + System.mapLibraryName("EffekseerNativeForJava")
+        );
+      } catch (IOException ioe) {
+        throw new UnsatisfiedLinkError("Could not find Effekseer4J lib: "+ioe.getMessage());
+      }
+    }
   }
   public static native long new_EffekseerBackendCore();
   public static native void delete_EffekseerBackendCore(long jarg1);
