@@ -1,5 +1,6 @@
 package com.tfc.effekseer4j;
 
+import Effekseer.swig.EffekseerCoreJNI;
 import com.tfc.effekseer4j.natives_config.InitializationConfigs;
 
 import java.io.*;
@@ -7,13 +8,15 @@ import java.io.*;
 public class Library {
 	static {
 		try {
-			File file = new File(InitializationConfigs.binPath + "/effekseer/" + "EffekseerNativeForJava-effekseer4j-1.dll");
+			File file = getDllFileEffekseer();
 			if (!file.exists()) {
 				file.getParentFile().mkdirs();
 				file.createNewFile();
 				
 				ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
-				InputStream stream = Library.class.getClassLoader().getResourceAsStream("EffekseerNativeForJava.dll");
+				InputStream stream = Library.class.getClassLoader().getResourceAsStream(
+						"EffekseerNativeForJava" + (InitializationConfigs.os.equals("Win") ? ".dll" : ".so")
+				);
 				int b;
 				while ((b = stream.read()) != -1) stream2.write(b);
 				stream.close();
@@ -31,7 +34,7 @@ public class Library {
 	}
 	
 	public static File getDllFileEffekseer() {
-		return new File(InitializationConfigs.binPath + "/effekseer/" + "EffekseerNativeForJava-effekseer4j-1.dll");
+		return new File(InitializationConfigs.binPath + "/effekseer/" + "EffekseerNativeForJava-effekseer4j-1" + (InitializationConfigs.os.equals("Win") ? ".dll" : ".so"));
 	}
 	
 /*	private static final HashMap<String, byte[]> effekSeerJarEntries = new HashMap<>();

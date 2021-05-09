@@ -36,6 +36,8 @@ public class Test {
 				super.print(s);
 			}
 		});
+		System.out.print("renderDevice: ");
+		System.out.println(Effekseer.getDevice());
 		System.out.print("OS: ");
 		System.out.println(InitializationConfigs.getOs());
 		if (!GLFW.glfwInit()) throw new IllegalStateException("Unable to initialize GLFW");
@@ -48,7 +50,6 @@ public class Test {
 		GLFW.glfwSwapInterval(1);
 		GL.createCapabilities();
 		GLFW.glfwShowWindow(window);
-		Effekseer.init();
 		System.out.print("successfulSetup: ");
 		System.out.println(Effekseer.setupForOpenGL());
 		System.out.print("renderDevice: ");
